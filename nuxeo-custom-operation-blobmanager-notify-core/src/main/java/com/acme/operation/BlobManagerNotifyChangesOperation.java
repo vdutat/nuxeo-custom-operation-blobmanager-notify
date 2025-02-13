@@ -2,6 +2,7 @@ package com.acme.operation;
 
 import java.util.Collections;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.automation.core.Constants;
@@ -47,7 +48,7 @@ public class BlobManagerNotifyChangesOperation {
         Repository repository = repositoryService.getRepository(doc.getRepositoryName());
         Session session2 = repository.getSession();
         Document document = session2.getDocumentByUUID(doc.getId());
-        if(xpath.isBlank()) {
+        if(StringUtils.isBlank(xpath)) {
             xpath = PROPERTY_NAME;
         }
         documentBlobManager.notifyChanges(document, Collections.singleton(xpath));
