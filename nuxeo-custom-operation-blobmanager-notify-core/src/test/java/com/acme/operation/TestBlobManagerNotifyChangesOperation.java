@@ -37,17 +37,19 @@ public class TestBlobManagerNotifyChangesOperation {
     @Test
     public void shouldCallTheOperation() throws OperationException {
         OperationContext ctx = new OperationContext(session);
+        ctx.setInput("/");
         DocumentModel doc = (DocumentModel) automationService.run(ctx, BlobManagerNotifyChangesOperation.ID);
         assertEquals("/", doc.getPathAsString());
     }
 
     @Test
     public void shouldCallWithParameters() throws OperationException {
-        final String path = "/default-domain";
+        final String path = "blob:mime-type";
         OperationContext ctx = new OperationContext(session);
+        ctx.setInput("/");
         Map<String, Object> params = new HashMap<>();
-        params.put("path", path);
+        params.put("xpath", path);
         DocumentModel doc = (DocumentModel) automationService.run(ctx, BlobManagerNotifyChangesOperation.ID, params);
-        assertEquals(path, doc.getPathAsString());
+        assertEquals("/", doc.getPathAsString());
     }
 }
